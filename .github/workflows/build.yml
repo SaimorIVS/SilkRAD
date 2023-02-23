@@ -1,0 +1,24 @@
+name: Build and publish
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Restore NuGet packages
+      run: nuget restore code/SilkRAD.sln
+    - name: Build project
+      run: msbuild code/SilkRAD.sln /p:Configuration=Release
+    - name: Publish Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: SilkRAD
+        path: code/SilkRAD/bin/Release
