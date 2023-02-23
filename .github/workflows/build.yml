@@ -13,10 +13,10 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up CUDA toolkit
-      uses: nvidia/cuda@sha256:1d9893562fbfdd06ef97b10e4f35c7c4be4bfaea9f2cf766d56ebc85a1a3a129
-      with:
-        toolkit: "10.0"
-        runfile: "local"
+      - uses: Jimver/cuda-toolkit@v0.2.8
+        id: cuda-toolkit
+        with:
+          cuda: '10.0.130'
     - name: Set up MSBuild
       uses: microsoft/setup-msbuild@v1.0.2
     - name: Restore NuGet packages
